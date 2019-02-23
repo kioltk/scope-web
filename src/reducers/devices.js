@@ -2,14 +2,14 @@ const initialState = { list: [] };
 export default (state = initialState, action) => {
   switch (action.type) {
     case "socket":
-      const projects = state.list;
+      const devices = state.list;
 
       return {
         list: [
-          ...projects.filter(
-            p => p.projectName !== action.data.project.projectName
+          ...devices.filter(
+            device => device.deviceId !== action.data.device.deviceId
           ),
-          action.data.project
+          action.data.device
         ]
       };
   }

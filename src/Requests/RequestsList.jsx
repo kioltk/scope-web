@@ -4,6 +4,7 @@ import moment from "moment";
 import Resizable from "re-resizable";
 import RequestInfo from "./RequestInfo";
 import { Box, MainBox, SubBox, Method, Url } from "./shared";
+import {connect} from "react-redux";
 
 const Resizer = styled.div`
   height: 4px;
@@ -91,7 +92,7 @@ const Trash = styled.div`
 const Footer = styled(SubBox)`
   justify-content: space-between;
 `;
-export default ({ requests }) => {
+const List = ({ requests }) => {
   return (
     <div>
       <Resizable
@@ -117,7 +118,7 @@ export default ({ requests }) => {
           <Requests>
             {requests &&
               requests.map(request => (
-                <Request selected={request.selected}>
+                <Request key={request.packetId} selected={request.selected}>
                   <Column selected={request.selected} width={50}>
                     <Status code={request.status}>{request.status}</Status>
                   </Column>
@@ -146,3 +147,7 @@ export default ({ requests }) => {
     </div>
   );
 };
+
+
+
+export default connect(state => ({ requests: state.requests.list }))(List);

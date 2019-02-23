@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import styled from "styled-components";
-import ProjectsList from "./ProjectsList";
-import DevicesList from "./DevicesList";
+import ProjectsList from "./components/ProjectsList";
+import DevicesList from "./components/DevicesList";
 import RequestsList from "./Requests/RequestsList";
 
 const Navigation = styled.div`

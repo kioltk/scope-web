@@ -21,6 +21,7 @@ const ProjectTitle = styled.div`
   color: ${props => (props.selected ? "#ffffff" : "#9C9C9C")};
 `;
 const List = ({ projects }) => {
+  console.log("Received projects from redux:", projects);
   return (
     <ProjectsList>
       {projects &&
