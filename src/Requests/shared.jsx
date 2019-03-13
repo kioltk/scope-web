@@ -45,6 +45,7 @@ export const Pre = styled.pre`
   margin: 1em 0;
   padding: 0.5em;
   width: 100%;
+  border-radius: 5px;
   background: red;
 
   & .token-line {
