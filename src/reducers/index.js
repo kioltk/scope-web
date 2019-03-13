@@ -6,5 +6,5 @@ import { combineReducers } from "redux";
 export default combineReducers({
   projects,
   devices,
-  requests,
+  requests
 });

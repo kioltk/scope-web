@@ -1,4 +1,4 @@
-const initialState = { list: [] };
+const initialState = { list: [], selected: null };
 export default (state = initialState, action) => {
   switch (action.type) {
     case "socket":
@@ -15,8 +15,11 @@ export default (state = initialState, action) => {
           }
         ]
       };
+    case "select":
+      return { ...state, selected: action.request };
   }
   return {
-    list: state.list
+    list: state.list,
+    selected: state.selected
   };
 };

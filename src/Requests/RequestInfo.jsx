@@ -28,21 +28,26 @@ const Url = styled(BaseUrl)`
 const Info = styled.div`
   margin-top: 10px;
 `;
+const Status = styled.div`
+  font-weight: bold;
+  color: #fff;
+`;
 
 export default ({ request }) => {
   return (
-    <Info>
-      <Box>
-        <Method method={request.method}>{request.method}</Method>
-        <UrlBox>
-          <Url className="code">{request.url}</Url>
-        </UrlBox>
-      </Box>
-      <Box>
-        <SubBox>
+    request && (
+      <Info>
+        <Box>
+          <Status status={request.statusCode}>{request.statusCode}</Status>
+          <Method method={request.method}>{request.method}</Method>
+          <UrlBox>
+            <Url className="code">{request.url}</Url>
+          </UrlBox>
+        </Box>
+        <Box>
           <p>{JSON.stringify(request, null, "\t")}</p>
-        </SubBox>
-      </Box>
-    </Info>
+        </Box>
+      </Info>
+    )
   );
 };

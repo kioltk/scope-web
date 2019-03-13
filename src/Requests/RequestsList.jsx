@@ -4,7 +4,9 @@ import moment from "moment";
 import Resizable from "re-resizable";
 import RequestInfo from "./RequestInfo";
 import { Box, MainBox, SubBox, Method, Url } from "./shared";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
+
+import store from "../index.js";
 
 const Resizer = styled.div`
   height: 4px;
@@ -38,6 +40,7 @@ const HeaderTitle = styled.div`
 
 const Requests = styled.div`
   flex: 1;
+  overflow: scroll;
 `;
 
 const Column = styled.div`
@@ -92,7 +95,15 @@ const Trash = styled.div`
 const Footer = styled(SubBox)`
   justify-content: space-between;
 `;
-const List = ({ requests }) => {
+const List = ({ requests, selected }) => {
+  function selectRequest(e, request) {
+    e.preventDefault();
+    store.dispatch({
+      type: "select",
+      request
+    });
+  }
+
   return (
     <div>
       <Resizable
@@ -105,7 +116,8 @@ const List = ({ requests }) => {
         minHeight={150}
         defaultSize={{
           width: "100%",
-          height: "50vh"
+          height: "40vh",
+          maxHeight: "50vh"
         }}
       >
         <MainBox>
@@ -118,12 +130,20 @@ const List = ({ requests }) => {
           <Requests>
             {requests &&
               requests.map(request => (
-                <Request key={request.packetId} selected={request.selected}>
+                <Request
+                  key={request.packetId}
+                  selected={request.selected}
+                  onClick={e => selectRequest(e, request)}
+                >
                   <Column selected={request.selected} width={50}>
-                    <Status code={request.status}>{request.status}</Status>
+                    <Status code={request.statusCode}>
+                      {request.statusCode}
+                    </Status>
                   </Column>
                   <Column width={76}>
-                    <Method method={request.method}>{request.method}</Method>
+                    <Method method={request.requestMethod}>
+                      {request.requestMethod}
+                    </Method>
                   </Column>
                   <Column>
                     <Url>{request.url}</Url>
@@ -143,11 +163,12 @@ const List = ({ requests }) => {
         </MainBox>
         <Resizer />
       </Resizable>
-      {/*<RequestInfo request={requests[0]} />*/}
+      <RequestInfo request={selected ? selected : null} />
     </div>
   );
 };
 
-
-
-export default connect(state => ({ requests: state.requests.list }))(List);
+export default connect(state => ({
+  requests: state.requests.list,
+  selected: state.requests.selected
+}))(List);
