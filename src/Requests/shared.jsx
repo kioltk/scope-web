@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
+import theme from "prism-react-renderer/themes/nightOwl";
+theme.plain.backgroundColor = "#1e1e1e";
+export const styledTheme = theme;
+
 export const Box = styled.div`
   margin-left: 10px;
   margin-right: 10px;
@@ -34,4 +38,24 @@ export const SubBox = styled.div`
   background: #464646;
   border-radius: 5px;
   display: flex;
+`;
+
+export const Pre = styled.pre`
+  text-align: left;
+  margin: 1em 0;
+  padding: 0.5em;
+  width: 100%;
+  background: red;
+
+  & .token-line {
+    line-height: 1.3em;
+    height: 1.3em;
+  }
+`;
+
+export const LineNo = styled.span`
+  display: inline-block;
+  width: 2em;
+  user-select: none;
+  opacity: 0.3;
 `;

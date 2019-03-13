@@ -5,8 +5,13 @@ import {
   SubBox,
   MainBox,
   Method as BaseMethod,
-  Url as BaseUrl
+  Url as BaseUrl,
+  Pre,
+  LineNo,
+  styledTheme
 } from "./shared";
+
+import Highlight, { defaultProps } from "prism-react-renderer";
 
 console.log("BaseBox=", BaseBox);
 const Box = styled(BaseBox)`
@@ -45,7 +50,25 @@ export default ({ request }) => {
           </UrlBox>
         </Box>
         <Box>
-          <p>{JSON.stringify(request, null, "\t")}</p>
+          <Highlight
+            {...defaultProps}
+            theme={styledTheme}
+            code={JSON.stringify(request, null, "\t")}
+            language="jsx"
+          >
+            {({ className, style, tokens, getLineProps, getTokenProps }) => (
+              <Pre className={className} style={style}>
+                {tokens.map((line, i) => (
+                  <div {...getLineProps({ line, key: i })}>
+                    <LineNo>{i + 1}</LineNo>
+                    {line.map((token, key) => (
+                      <span {...getTokenProps({ token, key })} />
+                    ))}
+                  </div>
+                ))}
+              </Pre>
+            )}
+          </Highlight>
         </Box>
       </Info>
     )
