@@ -30,7 +30,7 @@ export const Method = styled.code`
 `;
 export const Url = styled.code`
   color: #fff;
-  /* font-family: monospace; */
+  white-space: nowrap;
 `;
 
 export const SubBox = styled.div`
@@ -48,6 +48,7 @@ export const Pre = styled.pre`
   width: 100%;
   border-radius: 5px;
   background: red;
+  overflow: auto;
 
   & .token-line {
     line-height: 1.3em;

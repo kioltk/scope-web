@@ -23,6 +23,7 @@ const Requests = styled.div`
   flex: 1;
   height: 100vh;
   background: #323232;
+  overflow-y: scroll;
 `;
 class App extends Component {
   componentDidMount() {}

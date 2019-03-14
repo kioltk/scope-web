@@ -56,6 +56,7 @@ const Column = styled.div`
   &:hover {
     background: 1px solid #2a2a2a;
   }
+  overflow: auto;
 `;
 
 const Status = styled.code`

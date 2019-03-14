@@ -11,8 +11,8 @@ import {
   styledTheme
 } from "./shared";
 
-import Highlight, { defaultProps } from "prism-react-renderer";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import Highlight, { defaultProps } from "prism-react-renderer";
 let querystring = require("query-string");
 
 console.log("BaseBox=", BaseBox);
@@ -30,6 +30,7 @@ const UrlBox = styled(SubBox)`
 `;
 const Url = styled(BaseUrl)`
   padding: 6px 6px;
+  white-space: normal;
 `;
 const Info = styled.div`
   margin-top: 10px;
@@ -88,7 +89,11 @@ export default ({ request }) => {
             <Url className="code">{request.url}</Url>
           </UrlBox>
         </Box>
-        <Box>
+        <Box
+          style={{
+            position: "relative"
+          }}
+        >
           <TabsStyled>
             <TabListStyled>
               <TabStyled>Body</TabStyled>
@@ -97,7 +102,15 @@ export default ({ request }) => {
               <TabStyled>Overview</TabStyled>
             </TabListStyled>
 
-            <TabPanel>
+            <TabPanel
+              style={{
+                top: 0,
+                position: "absolute",
+                right: 0,
+                left: 0,
+                overflow: "auto"
+              }}
+            >
               <Highlight
                 {...defaultProps}
                 theme={styledTheme}
