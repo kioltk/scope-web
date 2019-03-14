@@ -83,15 +83,15 @@ const Filter = styled.input`
   width: 200px;
   margin: 5px;
 `;
-const Trash = styled.div`
+const Clear = styled.div`
   background: #1e1e1e;
   border-radius: 3px;
   padding: 2px 4px;
   font-size: 12px;
-  color: #393939;
+  color: ${props => (props.on ? "#fff" : "#393939")};
   font-weight: 600;
   margin: 5px;
-  cursor: pointer;
+  cursor: ${props => (props.on ? "pointer" : "initial")};
 `;
 const Footer = styled(SubBox)`
   justify-content: space-between;
@@ -102,6 +102,11 @@ const List = ({ requests, selected }) => {
     store.dispatch({
       type: "select",
       request
+    });
+  }
+  function clearRequests(e) {
+    store.dispatch({
+      type: "clear"
     });
   }
 
@@ -159,7 +164,9 @@ const List = ({ requests, selected }) => {
           </Requests>
           <Footer>
             <Filter placeholder="Filter" />
-            <Trash>Trash</Trash>
+            <Clear on={requests ? true : false} onClick={e => clearRequests(e)}>
+              Clear
+            </Clear>
           </Footer>
         </MainBox>
         <Resizer />

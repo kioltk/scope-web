@@ -17,6 +17,8 @@ export default (state = initialState, action) => {
       };
     case "select":
       return { ...state, selected: action.request };
+    case "clear":
+      return { state };
   }
   return {
     list: state.list,

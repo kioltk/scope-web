@@ -27,6 +27,7 @@ const Method = styled(BaseMethod)`
 const UrlBox = styled(SubBox)`
   flex: 1;
   margin-left: 10px;
+  overflow: auto;
 `;
 const Url = styled(BaseUrl)`
   padding: 6px 6px;
@@ -104,7 +105,6 @@ export default ({ request }) => {
 
             <TabPanel
               style={{
-                top: 0,
                 position: "absolute",
                 right: 0,
                 left: 0,
