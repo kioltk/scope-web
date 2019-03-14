@@ -176,12 +176,7 @@ export default ({ request }) => {
                 </Table>
               )}
             </TabPanel>
-            <TabPanel>
-              <h2>Content</h2>
-            </TabPanel>
-            <TabPanel>
-              <h2>Overview</h2>
-            </TabPanel>
+            <TabPanel />
           </TabsStyled>
         </Box>
       </Info>

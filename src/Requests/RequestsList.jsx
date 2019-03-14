@@ -96,13 +96,26 @@ const Clear = styled.div`
 const Footer = styled(SubBox)`
   justify-content: space-between;
 `;
-const List = ({ requests, selected }) => {
+const List = ({ requests, selected, filtered }) => {
   function selectRequest(e, request) {
     e.preventDefault();
     store.dispatch({
       type: "select",
       request
     });
+  }
+  function filterList(e) {
+    if (requests) {
+      const updatedList = requests.filter(item => {
+        return (
+          item.url.toLowerCase().search(e.target.value.toLowerCase()) !== -1
+        );
+      });
+      store.dispatch({
+        type: "filter",
+        updatedList
+      });
+    }
   }
   function clearRequests(e) {
     store.dispatch({
@@ -135,7 +148,7 @@ const List = ({ requests, selected }) => {
           </Header>
           <Requests>
             {requests &&
-              requests.map(request => (
+              (filtered ? filtered : requests).map(request => (
                 <Request
                   key={request.packetId}
                   selected={request.selected}
@@ -171,7 +184,7 @@ const List = ({ requests, selected }) => {
               ))}
           </Requests>
           <Footer>
-            <Filter placeholder="Filter" />
+            <Filter placeholder="Filter" onChange={e => filterList(e)} />
             <Clear on={requests ? true : false} onClick={e => clearRequests(e)}>
               Clear
             </Clear>
@@ -186,5 +199,6 @@ const List = ({ requests, selected }) => {
 
 export default connect(state => ({
   requests: state.requests.list,
-  selected: state.requests.selected
+  selected: state.requests.selected,
+  filtered: state.requests.filtered
 }))(List);
