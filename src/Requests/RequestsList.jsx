@@ -156,7 +156,7 @@ const List = ({ requests, selected }) => {
                   </Column>
                   <Column width={148}>
                     <Date>
-                      {new Intl.DateTimeFormat("en-US", {
+                      {Intl.DateTimeFormat("en-US", {
                         year: "numeric",
                         month: "numeric",
                         day: "numeric",
@@ -164,7 +164,7 @@ const List = ({ requests, selected }) => {
                         minute: "numeric",
                         second: "numeric",
                         hour12: false
-                      }).format(request.date)}
+                      }).format(request.startDate * 1000)}
                     </Date>
                   </Column>
                 </Request>
