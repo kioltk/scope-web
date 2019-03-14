@@ -156,7 +156,15 @@ const List = ({ requests, selected }) => {
                   </Column>
                   <Column width={148}>
                     <Date>
-                      {moment(request.date).format("MM/DD/YYYY HH:mm:ss")}
+                      {new Intl.DateTimeFormat("en-US", {
+                        year: "numeric",
+                        month: "numeric",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                        second: "numeric",
+                        hour12: false
+                      }).format(request.date)}
                     </Date>
                   </Column>
                 </Request>
