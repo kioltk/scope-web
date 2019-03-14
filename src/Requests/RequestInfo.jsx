@@ -13,6 +13,7 @@ import {
 
 import Highlight, { defaultProps } from "prism-react-renderer";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+let querystring = require("query-string");
 
 console.log("BaseBox=", BaseBox);
 const Box = styled(BaseBox)`
@@ -44,6 +45,9 @@ const TabListStyled = styled(TabList)`
   margin: 0;
   padding: 20px 0 5px;
 `;
+const TabsStyled = styled(Tabs)`
+  flex: 1;
+`;
 const TabStyled = styled(Tab)`
   margin-right: 30px;
   color: ${props => (props.selected ? "#ae79fb" : "#5e5e5e")};
@@ -52,6 +56,25 @@ const TabStyled = styled(Tab)`
   &:hover {
     cursor: pointer;
   }
+`;
+const Table = styled.table`
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+  background: rgb(30, 30, 30);
+  // border-radius: 5px;
+`;
+const TableHeader = styled.h2`
+  color: #fff;
+  font-family: monospace;
+  padding: 10px;
+`;
+const TableRow = styled.tr``;
+const TableData = styled.td`
+  border: 1px solid #2a2a2a;
+  color: #fff;
+  font-family: monospace;
+  padding: 10px;
 `;
 
 export default ({ request }) => {
@@ -66,7 +89,7 @@ export default ({ request }) => {
           </UrlBox>
         </Box>
         <Box>
-          <Tabs>
+          <TabsStyled>
             <TabListStyled>
               <TabStyled>Body</TabStyled>
               <TabStyled>Parameters</TabStyled>
@@ -102,10 +125,43 @@ export default ({ request }) => {
               </Highlight>
             </TabPanel>
             <TabPanel>
-              <h2>Parameters</h2>
+              <Table>
+                {request.url &&
+                  Object.keys(querystring.parseUrl(request.url).query).map(
+                    param => (
+                      <TableRow>
+                        <TableData>{param}</TableData>
+                        <TableData>
+                          {querystring.parseUrl(request.url).query[param]}
+                        </TableData>
+                      </TableRow>
+                    )
+                  )}
+              </Table>
             </TabPanel>
             <TabPanel>
-              <h2>Headers</h2>
+              {request.requestHeaders && (
+                <Table>
+                  <TableHeader>Request</TableHeader>
+                  {Object.keys(request.requestHeaders).map(param => (
+                    <TableRow>
+                      <TableData>{param}</TableData>
+                      <TableData>{request.requestHeaders[param]}</TableData>
+                    </TableRow>
+                  ))}
+                </Table>
+              )}
+              {request.responseHeaders && (
+                <Table>
+                  <TableHeader>Response</TableHeader>
+                  {Object.keys(request.responseHeaders).map(param => (
+                    <TableRow>
+                      <TableData>{param}</TableData>
+                      <TableData>{request.responseHeaders[param]}</TableData>
+                    </TableRow>
+                  ))}
+                </Table>
+              )}
             </TabPanel>
             <TabPanel>
               <h2>Content</h2>
@@ -113,7 +169,7 @@ export default ({ request }) => {
             <TabPanel>
               <h2>Overview</h2>
             </TabPanel>
-          </Tabs>
+          </TabsStyled>
         </Box>
       </Info>
     )

@@ -44,6 +44,7 @@ export const Pre = styled.pre`
   text-align: left;
   margin: 1em 0;
   padding: 0.5em;
+  box-sizing: border-box;
   width: 100%;
   border-radius: 5px;
   background: red;

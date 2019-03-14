@@ -5,6 +5,7 @@
   "dependencies": {
     "moment": "^2.24.0",
     "prism-react-renderer": "^0.1.6",
+    "query-string": "^6.3.0",
     "re-resizable": "^4.11.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
